@@ -1,9 +1,9 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import static luis.ferreira.libraries.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
 
 public class RadialPixelGradient extends PApplet {
     int[] palette = {0xffff7f00, 0xff007fff, 0xff7f00ff};

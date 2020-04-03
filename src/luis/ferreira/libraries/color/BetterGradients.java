@@ -1,4 +1,4 @@
-package luis.ferreira.libraries;
+package luis.ferreira.libraries.color;
 
 import processing.core.PApplet;
 

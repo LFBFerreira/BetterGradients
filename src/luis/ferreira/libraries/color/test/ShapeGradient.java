@@ -1,8 +1,8 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
 
 public class ShapeGradient extends PApplet {
     int currentRender = 0;

@@ -1,12 +1,12 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
+
 
 import processing.core.PApplet;
-import processing.core.PConstants;
+import static luis.ferreira.libraries.color.BetterGradients.*;
 
-import static luis.ferreira.libraries.BetterGradients.composeclr;
-import static luis.ferreira.libraries.BetterGradients.hsbToRgb;
 
-public class ConvertionHsbToRgb extends PApplet {
+public class ConvertionRgbToHsb extends PApplet {
+
 
     public void settings() {
         size(512, 128);
@@ -39,7 +39,10 @@ public class ConvertionHsbToRgb extends PApplet {
         radius = width / dtf;
 
         float x, y, z, w;
-        float[] rgbas = new float[4];
+
+        //        float[] rgbas = new float[4];
+        float[] hsbas = new float[4];
+
         for (int i = 0; i < detail; ++i) {
 
             // Select random values between 0 and 1.
@@ -49,8 +52,9 @@ public class ConvertionHsbToRgb extends PApplet {
             w = random(0, 1);
 
             // Compose colors.
-            clrsa[i] = color(x, y, z, w);
-            clrsb[i] = composeclr(hsbToRgb(x, y, z, w, rgbas));
+            clrsa[i] = composeclr(x, y, z, w);
+            rgbToHsb(x, y, z, w, hsbas);
+            clrsb[i] = color(hsbas[0], hsbas[1], hsbas[2], hsbas[3]);
         }
     }
 

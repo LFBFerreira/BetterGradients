@@ -1,8 +1,8 @@
-package luis.ferreira.libraries;
+package luis.ferreira.libraries.color;
 
 
-import static luis.ferreira.libraries.BetterGradients.composeclr;
-import static luis.ferreira.libraries.BetterGradients.hsbToRgb;
+import static luis.ferreira.libraries.color.BetterGradients.composeclr;
+import static luis.ferreira.libraries.color.BetterGradients.hsbToRgb;
 import static processing.core.PConstants.HSB;
 
 public class ColorStop implements Comparable<ColorStop> {

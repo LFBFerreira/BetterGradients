@@ -1,10 +1,10 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
-import luis.ferreira.libraries.ColorStop;
-import luis.ferreira.libraries.Gradient;
+import luis.ferreira.libraries.color.ColorStop;
+import luis.ferreira.libraries.color.Gradient;
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.BetterGradients.composeclr;
+import static luis.ferreira.libraries.color.BetterGradients.composeclr;
 
 public class RadialGradientCustom extends PApplet {
     int clrCount = 4;

@@ -1,11 +1,11 @@
-package luis.ferreira.libraries;
+package luis.ferreira.libraries.color;
 
 
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static luis.ferreira.libraries.BetterGradients.*;
+import static luis.ferreira.libraries.color.BetterGradients.*;
 import static processing.core.PConstants.RGB;
 import static processing.core.PConstants.HSB;
 

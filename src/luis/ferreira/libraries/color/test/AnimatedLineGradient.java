@@ -1,16 +1,13 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
 
-
-public class AnimatedLineEquidistantGradient extends PApplet {
+public class AnimatedLineGradient extends PApplet {
     int red = color(255, 0, 0, 255);
     int blue = color(0, 0, 255, 255);
     int currentStroke;
-
-    int[] palette = new int[]{ 0xffff0000, 0xff00ffff, 0xffffff00 };
 
     int margin = 32;
     int bottom0;
@@ -50,7 +47,7 @@ public class AnimatedLineEquidistantGradient extends PApplet {
         // Animation step and loop step are multiplied.
         for (int i = left; i <= right; i += 1) {
             loopStep = map(i, left, right, 0, 1);
-            currentStroke = lerpColorWrapper(palette, (loopStep + animStep) * 0.5f, HSB);
+            currentStroke = lerpColor(red, blue, loopStep * animStep, HSB);
             stroke(currentStroke);
             line(i, top0, i, bottom0);
         }
@@ -59,7 +56,7 @@ public class AnimatedLineEquidistantGradient extends PApplet {
         // Animation step and loop step are averaged.
         for (int i = top1; i <= bottom1; i += 1) {
             loopStep = map(i, top1, bottom1, 0, 1);
-            currentStroke = lerpColorWrapper(palette, (loopStep + animStep) * 0.5f, RGB);
+            currentStroke = lerpColor(red, blue, (loopStep + animStep) * 0.5f, RGB);
             stroke(currentStroke);
             line(left, i, right, i);
         }

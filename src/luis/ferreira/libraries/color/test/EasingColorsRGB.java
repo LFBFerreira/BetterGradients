@@ -1,21 +1,16 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.BetterGradients.*;
+import static luis.ferreira.libraries.color.BetterGradients.composeclr;
+import static luis.ferreira.libraries.color.BetterGradients.smootherStepRgb;
 
-
-
-public class SmootherEasingColorsRGB extends PApplet {
+public class EasingColorsRGB extends PApplet {
     int halfh;
     int startc, stopc;
     float w, step0, step1, stepc;
     float[] startf, stopf, current = new float[4];
     String fmt = "%s\tX %.2f\tY %.2f\tZ %.2f\tW %.2f";
-
-    float[][] palettef;
-    int[] palettec;
-    int clrcount = 5;
 
     public void settings() {
         size(512, 256);
@@ -38,23 +33,32 @@ public class SmootherEasingColorsRGB extends PApplet {
             stepc = step0 * step1;
 
             // Draw Processing gradient.
-            stroke(lerpColorWrapper(palettec, stepc, RGB));
+            stroke(lerpColor(startc, stopc, stepc, RGB));
             line(i, 0, i, halfh);
 
-            smootherStepRgb(palettef, stepc, current);
+            // Draw custom gradient.
+            smootherStepRgb(startf, stopf, stepc, current);
             stroke(composeclr(current));
             line(i, halfh, i, height);
         }
     }
 
     void rndclrs() {
-        palettef = new float[clrcount][4];
-        for (int i = 0; i < clrcount; ++i) {
-            palettef[i] = new float[]{ random(1.0f), random(1.0f), random(1.0f), 1.0f };
-        }
-        palettec = composeclr(palettef);
-    }
 
+        // Create random RGB values.
+        startf = new float[]{random(1), random(1), random(1), 1};
+        stopf = new float[]{random(1), random(1), random(1), 1};
+
+        // Convert to colors for Processing gradient.
+        startc = composeclr(startf);
+        stopc = composeclr(stopf);
+
+        // Print color values.
+        println(String.format(fmt,
+                hex(startc), startf[0], startf[1], startf[2], startf[3]));
+        println(String.format(fmt,
+                hex(stopc), stopf[0], stopf[1], stopf[2], stopf[3]));
+    }
 
     public void mousePressed() {
         rndclrs();

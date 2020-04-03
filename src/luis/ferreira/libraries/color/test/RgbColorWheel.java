@@ -1,7 +1,6 @@
-package luis.ferreira.libraries.test;
+package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 public class RgbColorWheel extends PApplet {
 
