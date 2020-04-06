@@ -3,14 +3,13 @@ package luis.ferreira.libraries.color.test;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
+import luis.ferreira.libraries.color.*;
 
 public class AngledPixelGradient extends PApplet {
-    int[] palette = { 0xffff7f00, 0xff007fff, 0xff7f00ff };
+    int[] palette = {0xffff7f00, 0xff007fff, 0xff7f00ff};
     PGraphics renderer;
 
-    public void settings()
-    {
+    public void settings() {
         size(512, 256);
     }
 
@@ -33,7 +32,7 @@ public class AngledPixelGradient extends PApplet {
         for (int i = 0, y = 0, x; y < h; ++y) {
             for (x = 0; x < w; ++x, ++i) {
                 st = project(ox, oy, dx, dy, x, y);
-                renderer.pixels[i] = lerpColorWrapper(palette, st, RGB);
+                renderer.pixels[i] = BetterGradients.lerpColorSmoother(palette, st, RGB);
             }
         }
         renderer.updatePixels();

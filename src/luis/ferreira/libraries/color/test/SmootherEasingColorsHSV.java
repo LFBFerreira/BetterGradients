@@ -37,7 +37,7 @@ public class SmootherEasingColorsHSV extends PApplet {
             stepc = step0 * step1;
 
             // Draw Processing gradient.
-            stroke(lerpColorWrapper(palettec, stepc, RGB));
+            stroke(lerpColorSmoother(palettec, stepc, RGB));
             line(i, 0, i, halfh);
 
             smootherStepHsb(palettef, stepc, current);

@@ -44,35 +44,9 @@ public class EasingColorsHSV extends PApplet {
     }
 
     void rndclrs() {
-        startf = new float[] { random(1), 1, 1, 1 };
-        stopf = new float[] { random(1), 1, 1, 1 };
+        startf = new float[]{random(1), 1, 1, 1};
+        stopf = new float[]{random(1), 1, 1, 1};
         startc = composeclr(hsbToRgb(startf));
         stopc = composeclr(hsbToRgb(stopf));
-        /* ... */
-    }
-
-    float[] smootherStepHsb(float[] a, float[] b, float st, float[] out) {
-
-        // Find difference in hues.
-        float huea = a[0];
-        float hueb = b[0];
-        float delta = hueb - huea;
-
-        // Prefer shortest distance.
-        if (delta < -0.5) {
-            hueb += 1.0;
-        } else if (delta > 0.5) {
-            huea += 1.0;
-        }
-
-        float eval = smootherStep(st);
-
-        // The two hues may be outside of 0 .. 1 range,
-        // so modulate by 1.
-        out[0] = (huea + eval * (hueb - huea)) % 1;
-        out[1] = a[1] + eval * (b[1] - a[1]);
-        out[2] = a[2] + eval * (b[2] - a[2]);
-        out[3] = a[3] + eval * (b[3] - a[3]);
-        return out;
     }
 }

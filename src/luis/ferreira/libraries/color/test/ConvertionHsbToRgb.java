@@ -7,26 +7,23 @@ import static luis.ferreira.libraries.color.BetterGradients.hsbToRgb;
 
 public class ConvertionHsbToRgb extends PApplet {
 
-    public void settings() {
-        size(512, 128);
-    }
-
     int detail = 16;
     int precision = 4;
-
     float dtf = detail;
     float radius;
     float y0;
     float y1;
-
     String format =
             "0x%s\tH %+." + precision +
                     "f\tS %+." + precision +
                     "f\tV %+." + precision +
                     "f\tA %+." + precision + "f";
-
     int[] clrsa = new int[detail];
     int[] clrsb = new int[detail];
+
+    public void settings() {
+        size(512, 128);
+    }
 
     public void setup() {
         noStroke();

@@ -5,7 +5,6 @@ import processing.core.PApplet;
 import static luis.ferreira.libraries.color.BetterGradients.*;
 
 
-
 public class SmootherEasingColorsRGB extends PApplet {
     int halfh;
     int startc, stopc;
@@ -38,7 +37,7 @@ public class SmootherEasingColorsRGB extends PApplet {
             stepc = step0 * step1;
 
             // Draw Processing gradient.
-            stroke(lerpColorWrapper(palettec, stepc, RGB));
+            stroke(lerpColorSmoother(palettec, stepc, RGB));
             line(i, 0, i, halfh);
 
             smootherStepRgb(palettef, stepc, current);
@@ -50,7 +49,7 @@ public class SmootherEasingColorsRGB extends PApplet {
     void rndclrs() {
         palettef = new float[clrcount][4];
         for (int i = 0; i < clrcount; ++i) {
-            palettef[i] = new float[]{ random(1.0f), random(1.0f), random(1.0f), 1.0f };
+            palettef[i] = new float[]{random(1.0f), random(1.0f), random(1.0f), 1.0f};
         }
         palettec = composeclr(palettef);
     }

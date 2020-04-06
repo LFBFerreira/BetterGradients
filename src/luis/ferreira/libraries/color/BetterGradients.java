@@ -9,7 +9,6 @@ public class BetterGradients {
     // HSB to RGB
 
     /**
-     *
      * @param in
      * @return
      */
@@ -19,7 +18,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param in
      * @param out
      * @return
@@ -34,7 +32,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param hue
      * @param sat
      * @param bri
@@ -47,7 +44,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param hue
      * @param sat
      * @param bri
@@ -115,7 +111,6 @@ public class BetterGradients {
     // RGB to HSB
 
     /**
-     *
      * @param clr
      * @return
      */
@@ -124,7 +119,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param clr
      * @param out
      * @return
@@ -137,7 +131,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param in
      * @return
      */
@@ -146,7 +139,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param in
      * @param out
      * @return
@@ -161,7 +153,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param red
      * @param green
      * @param blue
@@ -206,6 +197,7 @@ public class BetterGradients {
 
     /**
      * Assumes that RGBA are in range 0 .. 1
+     *
      * @param in
      * @return
      */
@@ -217,6 +209,7 @@ public class BetterGradients {
 
     /**
      * Assumes that RGBA are in range 0 .. 1
+     *
      * @param red
      * @param green
      * @param blue
@@ -232,12 +225,13 @@ public class BetterGradients {
 
     /**
      * Assumes that RGBA are in range 0 .. 1
+     *
      * @param in
      * @return
      */
     public static int[] composeclr(float[][] in) {
         int sz = in.length;
-        int [] out = new int[sz];
+        int[] out = new int[sz];
         for (int i = 0; i < sz; ++i) {
             out[i] = composeclr(in[i][0], in[i][1], in[i][2], in[i][3]);
         }
@@ -247,7 +241,6 @@ public class BetterGradients {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     *
      * @param clr
      * @return
      */
@@ -258,6 +251,7 @@ public class BetterGradients {
     /**
      * Assumes that out has 4 elements
      * 1.0 / 255.0 = 0.003921569
+     *
      * @param clr
      * @param out
      * @return
@@ -277,7 +271,6 @@ public class BetterGradients {
     // RGB
 
     /**
-     *
      * @param a
      * @param b
      * @param st
@@ -294,7 +287,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param arr
      * @param st
      * @param out
@@ -325,7 +317,6 @@ public class BetterGradients {
     // HSB
 
     /**
-     *
      * @param a
      * @param b
      * @param st
@@ -358,7 +349,6 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param arr
      * @param st
      * @param out
@@ -400,7 +390,6 @@ public class BetterGradients {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     *
      * @param st
      * @return
      */
@@ -411,13 +400,12 @@ public class BetterGradients {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     *
      * @param arr
      * @param step
      * @param colorMode
      * @return
      */
-    public static int lerpColorWrapper(int[] arr, float step, int colorMode) {
+    public static int lerpColorSmoother(int[] arr, float step, int colorMode) {
         int sz = arr.length;
         if (sz == 1 || step <= 0.0) {
             return arr[0];
@@ -431,14 +419,13 @@ public class BetterGradients {
     }
 
     /**
-     *
      * @param grad
      * @param step
      * @param colorMode
      * @param parent
      * @return
      */
-    public static int lerpColorWrapper(Gradient grad, float step, int colorMode) {
-        return lerpColorWrapper(grad.colorStops.stream().mapToInt((ColorStop st)->st.clr).toArray(), step, colorMode);
+    public static int lerpColorSmoother(Gradient grad, float step, int colorMode) {
+        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(), step, colorMode);
     }
 }

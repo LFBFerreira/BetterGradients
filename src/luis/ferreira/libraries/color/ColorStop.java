@@ -40,8 +40,7 @@ public class ColorStop implements Comparable<ColorStop> {
         return Math.max(min, Math.min(max, val));
     }
 
-    public String toString()
-    {
-        return String.format("0x%08X @ %.2f", clr, percent );
+    public String toString() {
+        return String.format("0x%08X @ %.2f", clr, percent);
     }
 }

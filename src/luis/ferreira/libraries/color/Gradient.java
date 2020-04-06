@@ -1,7 +1,6 @@
 package luis.ferreira.libraries.color;
 
 
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class Gradient {
     }
 
     public void add(int colorMode, float percent,
-             float x, float y, float z, float w) {
+                    float x, float y, float z, float w) {
         add(new ColorStop(colorMode, percent, x, y, z, w));
     }
 
@@ -102,6 +101,7 @@ public class Gradient {
 
     /**
      * Calculates the color at the requested step
+     *
      * @param step
      * @return
      */
@@ -111,6 +111,7 @@ public class Gradient {
 
     /**
      * Calculates the color at the requested step
+     *
      * @param step
      * @param colorMode
      * @return
@@ -156,7 +157,7 @@ public class Gradient {
                 // Assumes that color stops' colors are ints. They could
                 // also be float[] arrays, in which case they wouldn't
                 // need to be decomposed.
-                switch(colorMode) {
+                switch (colorMode) {
                     case HSB:
                         rgbToHsb(currStop.clr, originclr);
                         rgbToHsb(prevStop.clr, destclr);

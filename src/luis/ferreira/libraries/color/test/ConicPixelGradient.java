@@ -1,14 +1,15 @@
 package luis.ferreira.libraries.color.test;
 
+import luis.ferreira.libraries.color.BetterGradients;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorSmoother;
 
 public class ConicPixelGradient extends PApplet {
 
     static final float INV_TWO_PI = 1.0f / TWO_PI;
-    int[] palette = { 0xffff7f00, 0xff007fff, 0xff00ff7f, 0xff7f00ff };
+    int[] palette = {0xffff7f00, 0xff007fff, 0xff00ff7f, 0xff7f00ff};
     PGraphics renderer;
 
     public void settings() {
@@ -36,12 +37,12 @@ public class ConicPixelGradient extends PApplet {
                 float t = angle + atan2(rise, run);
 
                 // Ensure a positive value if angle is negative.
-                t =  floorMod(t, TWO_PI);
+                t = floorMod(t, TWO_PI);
 
                 // Divide by TWO_PI to get value in range 0 .. 1.
                 t *= INV_TWO_PI;
 
-                renderer.pixels[i] = lerpColorWrapper(palette, t, RGB);
+                renderer.pixels[i] = BetterGradients.lerpColorSmoother(palette, t, RGB);
             }
         }
 

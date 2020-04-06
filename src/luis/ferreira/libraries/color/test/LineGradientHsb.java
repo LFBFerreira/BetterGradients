@@ -4,8 +4,7 @@ import processing.core.PApplet;
 
 public class LineGradientHsb extends PApplet {
 
-    public void settings()
-    {
+    public void settings() {
         // Set the sketch size to 512 pixels wide by 256 pixels high.
         size(512, 256);
     }

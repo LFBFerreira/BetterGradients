@@ -1,8 +1,9 @@
 package luis.ferreira.libraries.color.test;
 
+import luis.ferreira.libraries.color.BetterGradients;
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorSmoother;
 
 public class ShapeGradient extends PApplet {
     int currentRender = 0;
@@ -16,18 +17,17 @@ public class ShapeGradient extends PApplet {
     float t1 = 0;
     float dtf = detail;
 
-    int[] palette = { 0xffff7f00, 0xff7fff00,
+    int[] palette = {0xffff7f00, 0xff7fff00,
             0xff00ff7f, 0xff007fff,
-            0xff7f00ff, 0xffff007f };
+            0xff7f00ff, 0xffff007f};
     int[] renderTypes = {
             TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN,
-            QUADS, QUAD_STRIP, POLYGON };
+            QUADS, QUAD_STRIP, POLYGON};
     String[] typelabels = {
             "TRIANGLES", "TRIANGLE_STRIP", "TRIANGLE_FAN",
-            "QUADS", "QUAD_STRIP", "POLYGON" };
+            "QUADS", "QUAD_STRIP", "POLYGON"};
 
-    public void settings()
-    {
+    public void settings() {
         size(512, 256, P3D);
     }
 
@@ -51,18 +51,22 @@ public class ShapeGradient extends PApplet {
         background(0xffffffff);
 
         // Draw left shape from <1, 0, 0>.
-        iprc = 0; t0 = 0;
+        iprc = 0;
+        t0 = 0;
         beginShape(renderTypes[currentRender]);
         for (int i = 0; i < detail; ++i) {
             iprc = i / dtf;
             t0 = TWO_PI * iprc;
-            fill(lerpColorWrapper(palette, iprc, colorMode));
+            fill(BetterGradients.lerpColorSmoother(palette, iprc, colorMode));
             vertex(cx0 + cos(t0) * radius, cy0 + sin(t0) * radius, 0.0f);
         }
         endShape(CLOSE);
 
         // Draw right shape from <0, 0, 0>.
-        iprc = 0; jprc = 0; t0 = 0; t1 = 0;
+        iprc = 0;
+        jprc = 0;
+        t0 = 0;
+        t1 = 0;
         beginShape(renderTypes[currentRender]);
 
         // Begin at center.
@@ -76,11 +80,11 @@ public class ShapeGradient extends PApplet {
             t1 = TWO_PI * jprc;
 
             // Move from center to current angle.
-            fill(lerpColorWrapper(palette, iprc, colorMode));
+            fill(BetterGradients.lerpColorSmoother(palette, iprc, colorMode));
             vertex(cx1 + cos(t0) * radius, cy1 + sin(t0) * radius, 0.0f);
 
             // Move from current to next angle.
-            fill(lerpColorWrapper(palette, jprc, colorMode));
+            fill(BetterGradients.lerpColorSmoother(palette, jprc, colorMode));
             vertex(cx1 + cos(t1) * radius, cy1 + sin(t1) * radius, 0.0f);
 
             // Return to center.

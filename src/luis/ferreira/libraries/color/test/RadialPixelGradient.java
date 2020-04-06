@@ -1,9 +1,10 @@
 package luis.ferreira.libraries.color.test;
 
+import luis.ferreira.libraries.color.BetterGradients;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorSmoother;
 
 public class RadialPixelGradient extends PApplet {
     int[] palette = {0xffff7f00, 0xff007fff, 0xff7f00ff};
@@ -37,7 +38,7 @@ public class RadialPixelGradient extends PApplet {
                 distSq = run + rise;
                 dist = 4.0f * distSq / hypotSq;
 
-                renderer.pixels[i] = lerpColorWrapper(palette, dist, RGB);
+                renderer.pixels[i] = BetterGradients.lerpColorSmoother(palette, dist, RGB);
             }
         }
         renderer.updatePixels();

@@ -2,7 +2,7 @@ package luis.ferreira.libraries.color.test;
 
 import processing.core.PApplet;
 
-import static luis.ferreira.libraries.color.BetterGradients.lerpColorWrapper;
+import static luis.ferreira.libraries.color.BetterGradients.lerpColorSmoother;
 
 public class AnimatedLineGradient extends PApplet {
     int red = color(255, 0, 0, 255);
@@ -20,8 +20,7 @@ public class AnimatedLineGradient extends PApplet {
     float loopStep;
     float animStep;
 
-    public void settings()
-    {
+    public void settings() {
         size(512, 256);
     }
 
