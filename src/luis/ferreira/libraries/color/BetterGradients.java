@@ -1,8 +1,12 @@
 package luis.ferreira.libraries.color;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
+
+import static processing.core.PConstants.RGB;
 
 public class BetterGradients {
+    static final int DEFAULT_COLOR_MODE = RGB;
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -418,14 +422,30 @@ public class BetterGradients {
         return PApplet.lerpColor(arr[i], arr[i + 1], scl - i, colorMode);
     }
 
+    public static int lerpColorSmoother(int[] arr, float step) {
+        return lerpColorSmoother(arr, step, DEFAULT_COLOR_MODE);
+    }
+
     /**
      * @param grad
      * @param step
      * @param colorMode
-     * @param parent
      * @return
      */
     public static int lerpColorSmoother(Gradient grad, float step, int colorMode) {
-        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(), step, colorMode);
+        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(),
+                step,
+                colorMode);
+    }
+
+    /**
+     *
+     * @param grad
+     * @param step
+     * @return
+     */
+    public static int lerpColorSmoother(Gradient grad, float step) {
+        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(),
+                step);
     }
 }

@@ -4,6 +4,7 @@ package luis.ferreira.libraries.color;
 import static luis.ferreira.libraries.color.BetterGradients.composeclr;
 import static luis.ferreira.libraries.color.BetterGradients.hsbToRgb;
 import static processing.core.PConstants.HSB;
+import static processing.core.PConstants.RGB;
 
 public class ColorStop implements Comparable<ColorStop> {
     static final float TOLERANCE = 0.09f;

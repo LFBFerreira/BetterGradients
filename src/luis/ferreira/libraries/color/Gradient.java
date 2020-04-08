@@ -18,6 +18,7 @@ public class Gradient {
         this(0xff000000, 0xffffffff);
     }
 
+
     // Creates equidistant color stops.
     public Gradient(int... colors) {
         int sz = colors.length;
