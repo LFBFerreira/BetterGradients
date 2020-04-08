@@ -9,3 +9,5 @@ The aim of the library is to wrap the code that Jeremy used in his tutorial in e
 - lots of examples of gradient techniques 
 
 Tested with Processing 3.5.4.
+
+More info at https://luisferreira.space/projects/bettergradients/
