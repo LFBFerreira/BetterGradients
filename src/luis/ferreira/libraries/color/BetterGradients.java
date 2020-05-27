@@ -1,7 +1,8 @@
 package luis.ferreira.libraries.color;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
+
+import java.util.Arrays;
 
 import static processing.core.PConstants.RGB;
 
@@ -299,10 +300,10 @@ public class BetterGradients {
     public static float[] smootherStepRgb(float[][] arr, float st, float[] out) {
         int sz = arr.length;
         if (sz == 1 || st < 0) {
-            out = java.util.Arrays.copyOf(arr[0], 0);
+            out = Arrays.copyOf(arr[0], 0);
             return out;
         } else if (st > 1) {
-            out = java.util.Arrays.copyOf(arr[sz - 1], 0);
+            out = Arrays.copyOf(arr[sz - 1], 0);
             return out;
         }
         float scl = st * (sz - 1);
@@ -363,10 +364,10 @@ public class BetterGradients {
         int sz = arr.length;
 
         if (sz == 1 || st < 0) {
-            out = java.util.Arrays.copyOf(arr[0], 0);
+            out = Arrays.copyOf(arr[0], 0);
             return out;
         } else if (st > 1) {
-            out = java.util.Arrays.copyOf(arr[sz - 1], 0);
+            out = Arrays.copyOf(arr[sz - 1], 0);
             return out;
         }
 
@@ -433,19 +434,18 @@ public class BetterGradients {
      * @return
      */
     public static int lerpColorSmoother(Gradient grad, float step, int colorMode) {
-        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(),
+        return lerpColorSmoother(grad.getColorStops().stream().mapToInt((ColorStop st) -> st.color).toArray(),
                 step,
                 colorMode);
     }
 
     /**
-     *
      * @param grad
      * @param step
      * @return
      */
     public static int lerpColorSmoother(Gradient grad, float step) {
-        return lerpColorSmoother(grad.colorStops.stream().mapToInt((ColorStop st) -> st.clr).toArray(),
+        return lerpColorSmoother(grad.getColorStops().stream().mapToInt((ColorStop st) -> st.color).toArray(),
                 step);
     }
 }

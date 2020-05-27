@@ -4,12 +4,12 @@ package luis.ferreira.libraries.color;
 import static luis.ferreira.libraries.color.BetterGradients.composeclr;
 import static luis.ferreira.libraries.color.BetterGradients.hsbToRgb;
 import static processing.core.PConstants.HSB;
-import static processing.core.PConstants.RGB;
 
 public class ColorStop implements Comparable<ColorStop> {
-    static final float TOLERANCE = 0.09f;
-    float percent;
-    int clr;
+    public static final float TOLERANCE = 0.09f;
+
+    public float percent;
+    public int color;
 
     public ColorStop(int colorMode, float percent, float[] arr) {
         this(colorMode, percent, arr[0], arr[1], arr[2],
@@ -21,9 +21,9 @@ public class ColorStop implements Comparable<ColorStop> {
                 : composeclr(x, y, z, w));
     }
 
-    public ColorStop(float percent, int clr) {
+    public ColorStop(float percent, int color) {
         this.percent = constrain(percent, 0.0f, 1.0f);
-        this.clr = clr;
+        this.color = color;
     }
 
     public boolean approxPercent(ColorStop cs, float tolerance) {
@@ -42,6 +42,6 @@ public class ColorStop implements Comparable<ColorStop> {
     }
 
     public String toString() {
-        return String.format("0x%08X @ %.2f", clr, percent);
+        return String.format("0x%08X @ %.2f", color, percent);
     }
 }

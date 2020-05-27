@@ -32,7 +32,7 @@ public class RadialGradientCustom extends PApplet {
 
         println("Color Mode: " + (colorMode == RGB ? "RGB" : "HSB"));
         println("Colors: ");
-        for (ColorStop clr : grd.colorStops) {
+        for (ColorStop clr : grd.getColorStops()) {
             println(clr);
         }
 

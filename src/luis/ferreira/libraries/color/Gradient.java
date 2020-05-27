@@ -1,6 +1,7 @@
 package luis.ferreira.libraries.color;
 
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,17 +11,35 @@ import static processing.core.PConstants.HSB;
 
 
 public class Gradient {
-    static final int DEFAULT_COLOR_MODE = RGB;
+    static int DEFAULT_COLOR_MODE = RGB;
 
-    public List<ColorStop> colorStops = new LinkedList<>();
+    private List<ColorStop> colorStops = new LinkedList<>();
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Constructors
+
+    /**
+     *
+     */
     public Gradient() {
-        this(0xff000000, 0xffffffff);
+        this(new int[]{0xff000000, 0xffffffff});
     }
 
+    /**
+     *
+     * @param colorMode
+     */
+    public Gradient(int colorMode) {
+        this();
+        DEFAULT_COLOR_MODE = colorMode;
+    }
 
-    // Creates equidistant color stops.
-    public Gradient(int... colors) {
+    /**
+     * @param colors
+     */
+    public Gradient(int colorMode, int... colors) {
+        // Creates equidistant color stops.
         int sz = colors.length;
         float szf = sz <= 1.0f ? 1.0f : sz - 1.0f;
         for (int i = 0; i < sz; ++i) {
@@ -28,8 +47,20 @@ public class Gradient {
         }
     }
 
-    // Creates equidistant color stops.
+    /**
+     *
+     * @param colors
+     */
+    public Gradient(int... colors) {
+        this(DEFAULT_COLOR_MODE, colors);
+    }
+
+    /**
+     * @param colorMode
+     * @param colors
+     */
     public Gradient(int colorMode, float[]... colors) {
+        // Creates equidistant color stops.
         int sz = colors.length;
         float szf = sz <= 1.0f ? 1.0f : sz - 1.0f;
         for (int i = 0; i < sz; ++i) {
@@ -37,35 +68,83 @@ public class Gradient {
         }
     }
 
+    /**
+     * @param colorStops
+     */
     public Gradient(ColorStop... colorStops) {
         int sz = colorStops.length;
         for (int i = 0; i < sz; ++i) {
             this.colorStops.add(colorStops[i]);
         }
-        java.util.Collections.sort(this.colorStops);
-        remove();
+        Collections.sort(this.colorStops);
+        consolidate();
     }
 
-    public Gradient(List<ColorStop> colorStops) {
+    /**
+     *
+     * @param colorMode
+     * @param colorStops
+     */
+    public Gradient(int colorMode, List<ColorStop> colorStops) {
+        DEFAULT_COLOR_MODE = colorMode;
         this.colorStops = colorStops;
-        java.util.Collections.sort(this.colorStops);
-        remove();
+        Collections.sort(this.colorStops);
+        consolidate();
     }
 
+    /**
+     * @param colorStops
+     */
+    public Gradient(List<ColorStop> colorStops) {
+        this(DEFAULT_COLOR_MODE, colorStops);
+    }
+
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // ColorStops control
+
+    /**
+     * @param colorMode
+     * @param percent
+     * @param arr
+     */
     public void add(int colorMode, float percent, float[] arr) {
         add(new ColorStop(colorMode, percent, arr));
     }
 
-    public void add(int colorMode, float percent,
-                    float x, float y, float z, float w) {
+    /**
+     * @param colorMode
+     * @param percent
+     * @param x
+     * @param y
+     * @param z
+     * @param w
+     */
+    public void add(int colorMode, float percent, float x, float y, float z, float w) {
         add(new ColorStop(colorMode, percent, x, y, z, w));
     }
 
+    /**
+     * @param percent
+     * @param clr
+     */
     public void add(final float percent, final int clr) {
         add(new ColorStop(percent, clr));
     }
 
+    /**
+     * @param newColorStops
+     */
+    public void add(List<ColorStop> newColorStops) {
+        colorStops.addAll(newColorStops);
+    }
+
+    /**
+     * @param colorStop
+     */
     public void add(final ColorStop colorStop) {
+        // remove colorstops that are too close
         for (int sz = colorStops.size(), i = sz - 1; i > 0; --i) {
             ColorStop current = colorStops.get(i);
             if (current.approxPercent(colorStop, ColorStop.TOLERANCE)) {
@@ -73,37 +152,73 @@ public class Gradient {
                 colorStops.remove(current);
             }
         }
+
         colorStops.add(colorStop);
-        java.util.Collections.sort(colorStops);
+
+        Collections.sort(colorStops);
     }
 
+    // ----------------------------------------------------------
 
+    // Getters and Setters
+
+    /**
+     * @return
+     */
+    public List<ColorStop> getColorStops() {
+        return colorStops;
+    }
+
+    public int getColor(int index) {
+        if (colorStops.isEmpty()) {
+            return 0;
+        }
+
+        if (index >= colorStops.size()) {
+            return colorStops.get(colorStops.size() - 1).color;
+        } else if (index <= 0) {
+            return colorStops.get(0).color;
+        }
+
+        return colorStops.get(index).color;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @param colorStop
+     * @return
+     */
     public boolean remove(ColorStop colorStop) {
         return colorStops.remove(colorStop);
     }
 
+    /**
+     * @param i
+     * @return
+     */
     public ColorStop remove(int i) {
         return colorStops.remove(i);
     }
 
-    public int remove() {
-        int removed = 0;
-        for (int sz = colorStops.size(), i = sz - 1; i > 0; --i) {
-            ColorStop current = colorStops.get(i);
-            ColorStop prev = colorStops.get(i - 1);
-            if (current.approxPercent(prev, ColorStop.TOLERANCE)) {
-                System.out.println(current + " removed, as it was too close to " + prev);
-                colorStops.remove(current);
-                removed++;
-            }
-        }
-        return removed;
+    public void removeAll() {
+        colorStops.clear();
     }
+
+    public void reset() {
+        removeAll();
+        add(0, 0xFF000000);
+        add(1, 0xffffffff);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Evaluate
 
     /**
      * Calculates the color at the requested step
      *
-     * @param step
+     * @param step [0-1]
      * @return
      */
     public int eval(final float step) {
@@ -113,8 +228,8 @@ public class Gradient {
     /**
      * Calculates the color at the requested step
      *
-     * @param step
-     * @param colorMode
+     * @param step      [0-1]
+     * @param colorMode RGB or HSV
      * @return
      */
     public int eval(final float step, final int colorMode) {
@@ -124,9 +239,9 @@ public class Gradient {
         if (sz == 0) {
             return 0x00000000;
         } else if (sz == 1 || step < 0.0) {
-            return colorStops.get(0).clr;
+            return colorStops.get(0).color;
         } else if (step >= 1.0) {
-            return colorStops.get(sz - 1).clr;
+            return colorStops.get(sz - 1).color;
         }
 
         ColorStop currStop;
@@ -160,18 +275,39 @@ public class Gradient {
                 // need to be decomposed.
                 switch (colorMode) {
                     case HSB:
-                        rgbToHsb(currStop.clr, originclr);
-                        rgbToHsb(prevStop.clr, destclr);
+                        rgbToHsb(currStop.color, originclr);
+                        rgbToHsb(prevStop.color, destclr);
                         smootherStepHsb(originclr, destclr, scaledst, rsltclr);
                         return composeclr(hsbToRgb(rsltclr));
                     case RGB:
-                        decomposeclr(currStop.clr, originclr);
-                        decomposeclr(prevStop.clr, destclr);
+                        decomposeclr(currStop.color, originclr);
+                        decomposeclr(prevStop.color, destclr);
                         smootherStepRgb(originclr, destclr, scaledst, rsltclr);
                         return composeclr(rsltclr);
                 }
             }
         }
-        return colorStops.get(sz - 1).clr;
+        return colorStops.get(sz - 1).color;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Helpers
+
+    /**
+     * @return
+     */
+    private int consolidate() {
+        int removed = 0;
+        for (int sz = colorStops.size(), i = sz - 1; i > 0; --i) {
+            ColorStop current = colorStops.get(i);
+            ColorStop prev = colorStops.get(i - 1);
+            if (current.approxPercent(prev, ColorStop.TOLERANCE)) {
+                System.out.println(current + " removed, as it was too close to " + prev);
+                colorStops.remove(current);
+                removed++;
+            }
+        }
+        return removed;
     }
 }
