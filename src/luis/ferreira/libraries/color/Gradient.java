@@ -99,6 +99,14 @@ public class Gradient {
         this(DEFAULT_COLOR_MODE, colorStops);
     }
 
+    /**
+     *
+     * @return
+     */
+    public int getNumberColorStops()
+    {
+        return colorStops.size();
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
