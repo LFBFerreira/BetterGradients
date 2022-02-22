@@ -4,6 +4,10 @@ package luis.ferreira.libraries.color;
 import static luis.ferreira.libraries.color.BetterGradients.*;
 import static processing.core.PConstants.HSB;
 
+/**
+ * Represents a color stop, with a color [0..1]
+ * and a position [0..1]
+ */
 public class ColorStop implements Comparable<ColorStop> {
     public static final float TOLERANCE = 0.09f;
 
@@ -23,6 +27,16 @@ public class ColorStop implements Comparable<ColorStop> {
 
     /**
      *
+     * @param percent
+     * @param color
+     */
+    public ColorStop(float percent, int color) {
+        this.percent = constrain(percent, 0.0f, 1.0f);
+        this.color = color;
+    }
+
+    /**
+     *
      * @param colorMode
      * @param percent
      * @param r
@@ -33,16 +47,6 @@ public class ColorStop implements Comparable<ColorStop> {
     public ColorStop(int colorMode, float percent, float r, float g, float b, float a) {
         this(percent, colorMode == HSB ? composeclr(hsbToRgb(r, g, b, a))
                 : composeclr(r, g, b, a));
-    }
-
-    /**
-     *
-     * @param percent
-     * @param color
-     */
-    public ColorStop(float percent, int color) {
-        this.percent = constrain(percent, 0.0f, 1.0f);
-        this.color = color;
     }
 
     /**
